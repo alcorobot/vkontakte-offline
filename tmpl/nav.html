@@ -1,0 +1,42 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="navbar-header">
+		<a href="http://vk.com/chrome_vkoffline" class="navbar-brand"><img src="img/icon32.png" height="20" title="{{version}}"></a>
+	</div>
+	<ul id="peers" class="nav navbar-nav">
+		<li class="{{sel ? '' : 'active'}}">
+			<a action-click="open">Диалоги</a>
+		</li>
+		<li ng-repeat="id in peers" class="{{id == sel ? 'active' : ''}}">
+			<a action-click="open,{{id}}" class="ellipsis {{peerTyping(id) ? 'typing' : ''}}" style="max-width: 200px">
+				<span ng-if="unreads[id]" class="label label-primary" action-click="read,{{id}}">{{unreads[id]}}</span>
+				{{peer(id)}}
+			</a>
+			<i action-click="close,{{id}}" class="fa fa-times"></i>
+		</li>
+	</ul>
+	<ul class="nav navbar-nav navbar-right">
+		<li class="dropdown">
+			<a class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog"></i></a>
+			<ul class="dropdown-menu">
+				<li class="dropdown-header">{{users[account].name}}</li>
+				<li><a action-click="read">Отметить все прочитанным</a></li>
+				<li class="divider"></li>
+				<li><a action-click="logout">Выход из аккаунта</a></li>
+			</ul>
+		</li>
+	</ul>
+	<p class="navbar-text navbar-right text-muted">
+		<i ng-if="account.online == 2" class="fa fa-mobile"></i>
+		{{ users[account].online ? 'Online' : fromNow(users[account].last) }}
+	</p>
+	<p class="navbar-text navbar-right text-muted">
+		<span ng-if="counters.friends" class="label label-primary" title="Заявки в друзья"><i class="fa fa-user"></i> {{counters.friends}}</span>
+		<span ng-if="counters.photos" class="label label-primary" title="Отметки на фото"><i class="fa fa-picture-o"></i> {{counters.photos}}</span>
+		<span ng-if="counters.videos" class="label label-primary" title="Отметки на видео"><i class="fa fa-film"></i> {{counters.videos}}</span>
+		<span ng-if="counters.notes" class="label label-primary" title=""><i class="fa fa-file-text-o"></i> {{counters.notes}}</span>
+		<span ng-if="counters.gifts" class="label label-primary" title="Подарки"><i class="fa fa-gift"></i> {{counters.gifts}}</span>
+		<span ng-if="counters.events" class="label label-primary" title="События"><i class="fa fa-calendar"></i> {{counters.events}}</span>
+		<span ng-if="counters.groups" class="label label-primary" title="Приглашения в группы"><i class="fa fa-users"></i> {{counters.groups}}</span>
+		<span ng-if="counters.notifications" class="label label-primary" title="Уведомления"><i class="fa fa-bullhorn"></i> {{counters.notifications}}</span>
+	</p>
+</nav>

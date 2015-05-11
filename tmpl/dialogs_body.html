@@ -1,0 +1,32 @@
+﻿<div compile="dialog.text"></div>
+<div ng-if="dialog.att == 'multi'">
+    <i class="fa fa-file-o"></i> {{dialog.atts.length}} прикреплени {{num(dialog.atts.length, 'й', 'е', 'я')}}
+</div>
+<div ng-if="dialog.att == 'photo'">
+    <i class="fa fa-picture-o"></i> {{dialog.atts.length == 1 ? 'Изображение' : dialog.atts.length + ' изображени' + num(dialog.atts.length, 'й', 'е', 'я')}}
+</div>
+<div ng-if="dialog.att == 'video'">
+    <i class="fa fa-film"></i> {{dialog.atts.length == 1 ? 'Видеозапись' : dialog.atts.length + ' видеозапис' + num(dialog.atts.length, 'ей', 'ь', 'и')}}
+</div>
+<div ng-if="dialog.att == 'audio'">
+    <i class="fa fa-music"></i> {{dialog.atts.length == 1 ? 'Аудиозапись' : dialog.atts.length + ' аудиозапис' + num(dialog.atts.length, 'ей', 'ь', 'и')}}
+</div>
+<div ng-if="dialog.att == 'doc'">
+    <i class="fa fa-file"></i> {{dialog.atts.length == 1 ? 'Документ' : dialog.atts.length + ' документ' + num(dialog.atts.length, 'ов', '', 'а')}}
+</div>
+<div ng-if="dialog.att == 'wall'">
+    <i class="fa fa-comment"></i> Запись на стене
+</div>
+<div ng-if="dialog.att == 'wall_reply'">
+    <i class="fa fa-comments"></i> Комментарий на стене
+</div>
+<div ng-if="dialog.att == 'gift'">
+    <i class="fa fa-gift"></i> Подарок
+</div>
+<div ng-if="dialog.att == 'sticker'">
+    <i class="fa fa-smile-o"></i> Стикер
+</div>
+<div ng-if="dialog.fwd.length > 0">
+    <i class="fa fa-envelope-o"></i>
+    {{dialog.fwd.length == 1 ? 'Сообщение' : dialog.fwd.length + ' сообщени' + num(dialog.fwd.length, 'й', 'е', 'я')}}
+</div>

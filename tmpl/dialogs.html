@@ -1,0 +1,85 @@
+<div class="row" action="top">
+    <div class="col-md-8">
+        <input type="text" id="search" value="{{query}}" class="form-control" placeholder="Поиск пользователей" autocomplete="off" autofocus>
+        <div class="list-group">
+            <a ng-repeat="id in results" ng-init="user = users[id]" action-click="open,{{id}}" class="list-group-item">
+                <table>
+                    <tr>
+                        <td width="60">
+                            <img ng-src="{{ user.photo }}" width="50">
+                        </td>
+                        <td>
+                            {{ user.name }}
+                            <br>
+                            <small class="text-muted">
+                                {{user.online ? (user.online == 1 ? 'В сети' : 'В сети с телефона') : (user.sex ? 'Был' : 'Была') + ' в сети ' + fromNow(user.last)}}
+                            </small>
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+        <div class="list-group">
+            <a ng-repeat="dialog in dialogs" class="list-group-item dialog {{unreads[dialog.user || 'c'+dialog.chat] ? 'unreads' : ''}} {{dialog.read || dialog.out ? '' : 'unread'}}" action-click="open,{{dialog.user || 'c'+dialog.chat}}">
+                <table>
+                    <tr ng-if="dialog.user">
+                        <td valign="top" width="60">
+                            <img ng-src="{{ users[dialog.user].photo }}" width="50">
+                        </td>
+                        <td valign="top" width="200">
+                            {{ users[dialog.user].name }}
+                            <small class="text-muted">
+                                <div ng-if="users[dialog.user].online">
+                                    <i ng-if="users[dialog.user].online == 2" class="fa fa-mobile"></i> Online
+                                </div>
+                                <div>
+                                    {{ fromNow(dialog.date) }}
+                                </div>
+                            </small>
+                        </td>
+                        <td ng-if="dialog.out" valign="center" class="{{dialog.read ? '' : 'unread'}}">
+                            <table>
+                                <tr>
+                                    <td valign="top" width="55" align="center">
+                                        <img ng-src="{{ users[account].photo }}" width="40">
+                                    </td>
+                                    <td valign="center" ng-include="tmpl('dialogs_body')"></td>
+                                </tr>
+                            </table>
+                        </td>
+                        <td ng-if="!dialog.out" valign="center" ng-include="tmpl('dialogs_body')"></td>
+                    </tr>
+                    <tr ng-if="dialog.chat">
+                        <td valign="top" width="60">
+                            <img ng-src="{{ chats[dialog.chat].photo }}" width="50">
+                        </td>
+                        <td valign="top" width="200">
+                            <div class="ellipsis" style="width:200px">{{ chats[dialog.chat].name }}</div>
+                            <small class="text-muted">
+                                {{ chats[dialog.chat].users.length+' участник'+num(chats[dialog.chat].users.length, 'ов', '', 'а') }}
+                                <br>
+                                {{ fromNow(dialog.date) }}
+                            </small>
+                        </td>
+                        <td valign="center" class="{{dialog.read || !dialog.out ? '' : 'unread'}}">
+                            <table>
+                                <tr>
+                                    <td valign="top" width="55" align="center">
+                                        <img ng-src="{{ users[dialog.from].photo }}" width="40">
+                                    </td>
+                                    <td valign="center">
+                                        <small><b>{{users[dialog.from].name}}</b></small>
+                                        <div ng-include="tmpl('dialogs_body')"></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div id="vk_groups" action="widget"></div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+{
+   "background": {
+      "persistent": false,
+      "scripts": [ "js/underscore.js", "js/jquery.js", "js/ext.js", "js/background.js" ]
+   },
+   "browser_action": {
+      "default_icon": {
+         "19": "img/icon19.png",
+         "38": "img/icon38.png"
+      },
+      "default_title": "ВКонтакте Оффлайн"
+   },
+   "content_security_policy": "script-src 'self' 'unsafe-eval' https://ajax.googleapis.com https://vk.com/; object-src 'self'",
+   "description": "Диалоги ВКонтакте оффлайн",
+   "icons": {
+      "128": "img/icon128.png",
+      "16": "img/icon16.png",
+      "48": "img/icon48.png"
+   },
+   "manifest_version": 2,
+   "name": "ВКонтакте Оффлайн",
+   "offline_enabled": false,
+   "permissions": [ "alarms", "storage", "tabs", "notifications", "*://*.vk.com/*", "*://*.vk.me/*" ],
+   "version": "3.1.1"
+}

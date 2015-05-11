@@ -1,0 +1,68 @@
+<div id="messages">
+	<div ng-repeat="message in dialog" ng-init="from = users[message.from]; add = addition(message, dialog[$index - 1])" class="message {{add ? 'addition' : ''}} {{message.read ? '' : 'unread'}}" action="height">
+		<table ng-if="!add">
+			<tr>
+				<td valign="top" width="50">
+					<img ng-src="{{from.photo}}" width="40">
+				</td>
+				<td valign="top">
+					<b>{{from.abbr}}</b>
+					<div compile="message.text"></div>
+					<div ng-if="message.fwd.length > 0" class="fwd">
+						<div ng-repeat="fwd in message.fwd" ng-init="from = users[fwd.from]; add = addition(fwd, message.fwd[$index - 1])" ng-include="'tmpl/message_fwd.html'"></div>
+					</div>
+					<div ng-repeat="att in message.atts" ng-include="'tmpl/message_att.html'"></div>
+				</td>
+				<td valign="top" width="200" align="right" class="text-muted">
+					<span ng-if="date() == date(message.date)" title="Отправлено {{fromNow(message.date)}}">{{time(message.date)}}</span>
+					<span ng-if="date() != date(message.date)" title="Отправлено {{time(message.date)}}">{{date(message.date)}}</span>
+					<div>
+						<span ng-if="message.read > 1" title="Прочтено {{fromNow(message.read)}}"><i class="fa fa-eye"></i> {{time(message.read)}}</span>
+					</div>
+				</td>
+			</tr>
+		</table>
+		<table ng-if="add">
+			<tr>
+				<td valign="top" width="50"></td>
+				<td valign="top">
+					<div compile="message.text"></div>
+				</td>
+				<td valign="top" width="200" align="right" class="text-muted">
+					<span ng-if="message.read > 1" title="Прочтено {{fromNow(message.read)}}"><i class="fa fa-eye"></i> {{time(message.read)}}</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div id="info">
+		<p ng-if="user" class="text-muted">
+			<a href="http://vk.com/{{users[user].page}}">{{users[user].name}}</a>
+			{{users[user].online ? (users[user].online == 1 ? 'в сети' : 'в сети с телефона') : (users[user].sex ? 'был' : 'была') + ' в сети ' + fromNow(users[user].last)}}
+		</p>
+		<p ng-if="chat" class="text-muted">
+			<a href="http://vk.com/im?sel=c{{chat}}">{{chats[chat].name}}</a> ({{chats[chat].users.length}} участник{{num(chats[chat].users.length, 'ов', '', 'а')}})
+		</p>
+	</div>
+</div>
+<div id="panel">
+	<div class="container">
+		<div id="files" title="Прикрепить изображения">
+			<input type="file" accept="image/jpeg,image/png,image/gif" multiple>
+		</div>
+		<div class="form-control" id="message" action="focus" contenteditable="true"></div>
+		<div id="atts">
+			<div ng-repeat="(id, att) in atts[sel]" ng-if="att.data" action="height" class="att_done">
+				<img action-click="image,{{att.data.photo_2560 || att.data.photo_1280 || att.data.photo_807 || att.data.photo_604}}" ng-src="{{att.data.photo_130}}" title="{{att.name}}">
+				<i class="fa fa-times" action-click="unload,{{id}}"></i>
+			</div>
+			<div ng-repeat="(id, att) in atts[sel]" ng-if="!att.data" action="height" class="att_load">
+				<i class="fa fa-times" action-click="unload,{{id}}"></i>
+				{{att.name}}
+				{{att.error ? '('+att.error+')' : ''}}
+				<div class="progress {{att.error ? '' : 'progress-striped active'}}">
+					<div class="progress-bar {{att.error ? 'progress-bar-danger' : ''}}" style="width: {{att.procent}}%;"></div>
+				</div>
+			</div>
+		</div>
+		<div id="smiles" compile="smiles"></div>
+</div>

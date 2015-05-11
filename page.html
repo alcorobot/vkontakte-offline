@@ -1,0 +1,38 @@
+﻿<!doctype html>
+<html lang="ru" ng-app="dialogsApp">
+	<head>
+		<meta charset="utf-8">
+		<title>ВКонтакте Оффлайн</title>
+		<link rel="stylesheet" href="css/bootstrap.css">
+		<link rel="stylesheet" href="css/bootstrap.cosmo.css">
+		<link rel="stylesheet" href="css/font-awesome.css">
+		<link rel="stylesheet/less" type="text/css" href="css/page.less">
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.2/angular-sanitize.min.js"></script>
+		<script src="https://vk.com/js/api/openapi.js?105"></script>
+		<script src="js/underscore.js"></script>
+		<script src="js/jquery.js"></script>
+		<script src="js/bootstrap.js"></script>
+		<script src="js/moment.js"></script>
+		<script src="js/ext.js"></script>
+		<script src="js/ext.lp.js"></script>
+		<script src="js/ext.messages.js"></script>
+		<script src="js/ext.users.js"></script>
+		<script src="js/ext.chats.js"></script>
+		<script src="js/ext.emoji.js"></script>
+		<script src="js/ext.actions.js"></script>
+		<script src="js/page.js"></script>
+		<script src="js/less.js"></script>
+	</head>
+<body ng-controller="DialogsCtrl">
+	<div ng-include="tmpl('nav')"></div>
+	<div class="container">
+		<div ng-if="sel" ng-include="tmpl('dialog')"></div>
+		<div ng-if="!sel" ng-include="tmpl('dialogs')"></div>
+	</div>
+	<div id="image">
+		<div class="mask"></div>
+		<img class="image">
+	</div>
+</body>
+</html>

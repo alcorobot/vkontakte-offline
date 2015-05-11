@@ -1,0 +1,28 @@
+﻿<table ng-if="!add">
+    <tr>
+        <td valign="top" width="50">
+            <img ng-src="{{from.photo}}" width="40">
+        </td>
+        <td valign="top">
+            <b>{{from.name}}</b>
+            <span ng-if="date() == date(fwd.date)" class="text-muted" title="{{fromNow(fwd.date)}}">{{time(fwd.date)}}</span>
+            <span ng-if="date() != date(fwd.date)" class="text-muted" title="{{time(fwd.date)}}">{{date(fwd.date)}}</span>
+            <div compile="fwd.text"></div>
+            <div ng-if="fwd.fwd.length > 0">
+                <div ng-if="fwd.fwd[0]" class="fwd">
+                    <div ng-repeat="fwd in fwd.fwd" ng-init="from = users[fwd.from]; add = addition(fwd, message.fwd[$index - 1])" ng-include="'tmpl/message_fwd.html'"></div>
+                </div>
+                <a ng-if="!fwd.fwd[0]" href="http://vk.com/im?sel={{sel}}&msgid={{message.id}}"><i class="fa fa-envelope-o"></i> Пересланные сообщения</a>
+            </div>
+            <div ng-repeat="att in fwd.atts" ng-include="'tmpl/message_att.html'"></div>
+        </td>
+    </tr>
+</table>
+<table ng-if="add">
+    <tr>
+        <td valign="top" width="50"></td>
+        <td valign="top">
+            <div compile="fwd.text"></div>
+        </td>
+    </tr>
+</table>

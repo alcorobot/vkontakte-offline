@@ -1,0 +1,43 @@
+﻿<div class="att">
+	<div ng-if="att.photo">
+		<a action-click="image,{{att.photo.photo_2560 || att.photo.photo_1280 || att.photo.photo_807 || att.photo.photo_604}}">
+			<img class="img" ng-src="{{att.photo.photo_604}}">
+		</a>
+	</div>
+	<div ng-if="att.video">
+		<a action-click="attVideo,{{att.video.owner_id}},{{att.video.id}},{{att.video.access_key}}">
+			<img class="video" ng-src="{{att.video.photo_320}}">
+		</a>
+		<br>
+		<a href="https://vk.com/video{{att.video.owner_id}}_{{att.video.id}}"><i class="fa fa-film"></i> {{att.video.title}}</a>
+		{{duration(att.video.duration)}}
+	</div>
+	<div ng-if="att.audio">
+		<button class="btn btn-default btn-sm" action-click="attAudio,{{att.audio.url}}"><i class="fa fa-play"></i></button>
+		<br>
+		<a ng-href="http://vk.com/audio{{att.audio.owner_id}}_{{att.audio.id}}"><i class="fa fa-music"></i> {{att.audio.artist}} - {{att.audio.title}}</a>
+		{{duration(att.audio.duration)}}
+	</div>
+	<div ng-if="att.doc">
+		<a ng-if="att.doc.photo_130 && att.doc.ext == 'gif'" action-click="image,{{att.doc.url}}">
+			<img class="img" ng-src="{{att.doc.photo_130}}">
+		</a>
+		<img ng-if="att.doc.photo_130 && att.doc.ext != 'gif'" ng-src="{{att.doc.photo_130}}" action-click="attDoc,{{att.doc.url}},{{att.doc.photo_130}}" style="max-height:240px">
+		<div>
+			<a ng-href="http://vk.com/doc{{att.doc.owner_id}}_{{att.doc.id}}"><i class="fa fa-file"></i> {{att.doc.title}}</a>
+			({{size(att.doc.size)}} Мб)
+		</div>
+	</div>
+	<div ng-if="att.wall">
+		<a ng-href="http://vk.com/wall{{att.wall.to_id}}_{{att.wall.id}}"><i class="fa fa-comment"></i> Запись на стене</a>
+	</div>
+	<div ng-if="att.wall_reply">
+		<a ng-href="http://vk.com/wall{{att.wall_reply.reply_to_user}}_{{att.wall_reply.reply_to_comment}}?reply={{att.wall_reply.id}}"><i class="fa fa-comments"></i> Комментарий на стене</a>
+	</div>
+	<div ng-if="att.gift">
+		<img ng-src="{{att.gift.thumb_256}}">
+	</div>
+	<div ng-if="att.sticker">
+		<img ng-src="{{att.sticker.photo_128}}">
+	</div>
+</div>
